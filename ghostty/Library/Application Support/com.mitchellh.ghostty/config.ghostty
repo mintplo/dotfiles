@@ -1,0 +1,145 @@
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /Users/earus/Library/Application Support/com.mitchellh.ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+#
+# Ghostty can reload the configuration while running by using the menu
+# options or the bound key (default: Command + Shift + comma on macOS and
+# Control + Shift + comma on other platforms). Not all config options can be
+# reloaded while running; some only apply to new windows and others may require
+# a full restart to take effect.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+# background = #123abc
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+
+# ── 쉐이더 ────────────────────────────────────────
+custom-shader = cursor_shaders/cursor_smear_fade.glsl
+
+
+# ── 윈도우 ────────────────────────────────────────
+
+# 탭을 타이틀바에 통합 → 화면 공간 절약
+# macos-titlebar-style = tabs
+
+# 탭 바를 항상 표시 (always / never / auto 중 선택 가능)
+window-show-tab-bar = always
+
+# 세션 복원 (재시작 시 탭/split 복원)
+window-save-state = never
+
+# 새 탭/split에서 현재 작업 디렉토리 유지 OFF
+window-inherit-working-directory = false
+working-directory = home
+
+# 비활성 패인 어둡게 하기 (0.0 ~ 1.0)
+unfocused-split-fill = #000000
+unfocused-split-opacity = 0.7
+
+# 기본 윈도우 크기
+window-width = 136
+window-height = 56
+
+# ── 키보드(Mac OS) ──────────────
+macos-option-as-alt = true
+
+
+# ── 키보드(한글 입력 상태에서도 작동하도록) ──────────────
+
+# Ctrl + C: 프로세스 강제 종료 (SIGINT)
+keybind = ctrl+KeyC=text:\x03
+
+# Ctrl + Z: 프로세스 일시 정지 및 백그라운드 전환 (SIGTSTP)
+keybind = ctrl+KeyZ=text:\x1a
+
+# Ctrl + D: EOF 전송 (터미널 탭 닫기, Python/Django 셸 등 종료)
+keybind = ctrl+KeyD=text:\x04
+
+# Ctrl + L: 터미널 화면 클리어 (Clear)
+keybind = ctrl+KeyL=text:\x0c
+
+# Ctrl + R: 명령어 히스토리 검색 (Reverse search)
+keybind = ctrl+KeyR=text:\x12
+
+# Ctrl + U: 커서 앞의 입력 줄 전체 지우기
+keybind = ctrl+KeyU=text:\x15
+
+# Ctrl + K: 현재 커서 위치부터 줄 끝까지 모두 지우기 (잘라내기)
+keybind = ctrl+KeyK=text:\x0b
+
+# Ctrl + W: 커서 앞의 한 단어 지우기
+keybind = ctrl+KeyW=text:\x17
+
+# Ctrl + V: 붙여넣기 (Claude Code 등 CLI 앱 내부 클립보드 제어용)
+keybind = ctrl+KeyV=text:\x16
+
+
+# ── 스크롤/마우스 ─────────────────────────────────
+
+# 기본 10000 → 대용량 로그 대비
+scrollback-limit = 100000000
+# URL 자동 하이라이트 (Cmd+클릭으로 열기)
+link-url = true
+
+
+# ── 클립보드 ──────────────────────────────────────
+
+# 드래그 선택 → 즉시 시스템 클립보드에 복사
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+
+# ── 폰트 ──────────────────────────────────────
+
+font-family = "Hack Nerd Font"
+font-family = "D2Coding"
+font-size = 12
+font-codepoint-map = U+AC00-U+D7AF=D2Coding
+font-codepoint-map = U+1100-U+11FF=D2Coding
+font-codepoint-map = U+3000-U+303F=D2Coding
+font-codepoint-map = U+4E00-U+9FFF=D2Coding
+font-codepoint-map = U+F900-U+FAFF=D2Coding
+font-codepoint-map = U+FF00-U+FFEF=D2Coding
+font-codepoint-map = U+3400-U+4DBF=D2Coding
+
+
+# ── 기타 ──────────────────────────────────────
+
+auto-update-channel = stable
