@@ -1,0 +1,61 @@
+# === Claude Code ===
+# Auth & secrets
+claude/.claude/.anthropic/
+
+# Cache & temporary
+claude/.claude/cache/
+claude/.claude/paste-cache/
+claude/.claude/stats-cache.json
+claude/.claude/mcp-needs-auth-cache.json
+claude/.claude/statsig/
+claude/.claude/telemetry/
+claude/.claude/usage-data/
+claude/.claude/.DS_Store
+
+# Sessions & logs
+claude/.claude/sessions/
+claude/.claude/session-env/
+claude/.claude/logs/
+claude/.claude/debug/
+claude/.claude/history.jsonl
+claude/.claude/shell-snapshots/
+
+# IDE & editor state
+claude/.claude/ide/
+claude/.claude/file-history/
+
+# Tasks & todos (ephemeral)
+claude/.claude/tasks/
+claude/.claude/todos/
+claude/.claude/plans/
+
+# Plugins (installed per-machine)
+claude/.claude/plugins/
+
+# Projects (per-machine paths)
+claude/.claude/projects/
+
+# Backups & downloads
+claude/.claude/backups/
+claude/.claude/downloads/
+
+# Security warnings (per-machine)
+claude/.claude/security_warnings_state_*.json
+
+# Settings backup
+claude/.claude/settings.json.bak
+claude/.claude/settings.local.json
+
+# Metadata
+claude/.claude/.superclaude-metadata.json
+
+# === Neovim ===
+nvim/.config/nvim/lazy-lock.json
+nvim/.config/nvim/LICENSE
+nvim/.config/nvim/README.md
+
+# === Pi ===
+# (auth.json and sessions not in dotfiles)
+
+# === General ===
+.DS_Store
