@@ -55,7 +55,20 @@ nvim/.config/nvim/LICENSE
 nvim/.config/nvim/README.md
 
 # === Pi ===
-# (auth.json and sessions not in dotfiles)
+# Auth & secrets
+pi/.pi/agent/auth.json
+
+# Sessions (per-machine)
+pi/.pi/agent/sessions/
+
+# Binaries
+pi/.pi/agent/bin/
+
+# Project caches (per-machine paths)
+pi/.pi/agent/--*/
+
+# Node modules
+pi/.pi/**/node_modules/
 
 # === General ===
 .DS_Store
