@@ -1,5 +1,15 @@
 {
   "lastChangelogVersion": "0.55.1",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.3-codex"
+  "defaultModel": "gpt-5.3-codex",
+  "theme": "catppuccin-macchiato",
+  "defaultThinkingLevel": "xhigh",
+  "terminal": {
+    "showImages": true
+  },
+  "showHardwareCursor": true,
+  "doubleEscapeAction": "tree",
+  "compaction": {
+    "enabled": false
+  }
 }
