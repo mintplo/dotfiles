@@ -130,6 +130,7 @@ npm install -g @openai/codex
 | `rust` | `rustup` | claude (RTK 빌드) |
 | `node` / `npm` | `brew install node` | claude, pi |
 | `codex` | `npm install -g @openai/codex` | pi |
+| `fd` | `brew install fd` | nvim (venv-selector) |
 | `oh-my-zsh` | 설치 스크립트 | zsh |
 | `powerlevel10k` | git clone | zsh |
 | `fzf` | `brew install fzf` | zsh |
@@ -139,7 +140,7 @@ npm install -g @openai/codex
 ### 한 줄 설치 (brew)
 
 ```bash
-brew install stow neovim lazygit delta jq node fzf nvm
+brew install stow neovim lazygit delta jq node fzf nvm fd
 brew install --cask font-hack-nerd-font font-d2coding
 ```
 
