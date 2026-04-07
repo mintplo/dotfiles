@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.55.1",
+  "lastChangelogVersion": "0.65.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.3-codex",
+  "defaultModel": "gpt-5.4",
   "theme": "catppuccin-macchiato",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "high",
   "terminal": {
     "showImages": true
   },
@@ -11,5 +11,16 @@
   "doubleEscapeAction": "tree",
   "compaction": {
     "enabled": false
-  }
+  },
+  "packages": [
+    "https://github.com/carderne/pi-nvim",
+    "npm:checkpoint-pi",
+    "npm:@tmustier/pi-ralph-wiggum"
+  ],
+  "hideThinkingBlock": false,
+  "enabledModels": [
+    "anthropic/claude-opus-4-6",
+    "anthropic/claude-sonnet-4-6",
+    "openai-codex/gpt-5.4"
+  ]
 }
