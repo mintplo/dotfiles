@@ -1,7 +1,10 @@
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  config = true,
+  lazy = false,
+  opts = {
+    auto_start = true,
+  },
   keys = {
     { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
     { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude Code" },
