@@ -70,5 +70,8 @@ pi/.pi/agent/--*/
 # Node modules
 pi/.pi/**/node_modules/
 
+# Pi package installations (git clones, cached per-machine)
+pi/.pi/agent/git/
+
 # === General ===
 .DS_Store
