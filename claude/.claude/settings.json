@@ -96,16 +96,7 @@
     "security-guidance@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
-    "figma@claude-plugins-official": true,
-    "harness@harness-marketplace": true
-  },
-  "extraKnownMarketplaces": {
-    "harness-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "revfactory/harness"
-      }
-    }
+    "figma@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
   "voiceEnabled": true,
