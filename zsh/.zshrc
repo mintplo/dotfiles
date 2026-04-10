@@ -61,7 +61,7 @@ load-nvmrc
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client@8.0/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-. "$HOME/.local/bin/env"
+export PATH="$HOME/.local/bin:$PATH"
 
 # ── 외부 도구 ────────────────────────────────────
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
