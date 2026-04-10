@@ -4,7 +4,6 @@ return {
   "snacks.nvim",
   opts = {
     picker = {
-      hidden = true,
       win = {
         input = {
           keys = {
@@ -13,7 +12,17 @@ return {
         },
       },
       sources = {
+        files = {
+          hidden = true,
+          ignored = true,
+        },
+        grep = {
+          hidden = true,
+          ignored = true,
+        },
         explorer = {
+          hidden = true,
+          ignored = true,
           win = {
             list = {
               keys = {
@@ -52,6 +61,16 @@ return {
 
   keys = {
     {
+      "<leader><space>",
+      function()
+        snacks.picker.smart({
+          hidden = true,
+          ignored = true,
+        })
+      end,
+      desc = "Find Files (Root Dir)",
+    },
+    {
       "<leader>ff",
       function()
         snacks.picker.smart({
@@ -66,10 +85,53 @@ return {
       function()
         snacks.picker.grep({
           hidden = true,
+          ignored = true,
           regex = false,
         })
       end,
       desc = "Grep",
+    },
+    {
+      "<leader>fe",
+      function()
+        snacks.explorer({
+          cwd = LazyVim.root(),
+          hidden = true,
+          ignored = true,
+        })
+      end,
+      desc = "Explorer Snacks (root dir)",
+    },
+    {
+      "<leader>fE",
+      function()
+        snacks.explorer({
+          hidden = true,
+          ignored = true,
+        })
+      end,
+      desc = "Explorer Snacks (cwd)",
+    },
+    {
+      "<leader>e",
+      function()
+        snacks.explorer({
+          cwd = LazyVim.root(),
+          hidden = true,
+          ignored = true,
+        })
+      end,
+      desc = "Explorer Snacks (root dir)",
+    },
+    {
+      "<leader>E",
+      function()
+        snacks.explorer({
+          hidden = true,
+          ignored = true,
+        })
+      end,
+      desc = "Explorer Snacks (cwd)",
     },
     {
       "<leader>ba",
