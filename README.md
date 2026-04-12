@@ -115,10 +115,11 @@ rtk --version
 npm install -g @mariozechner/pi-coding-agent
 ```
 
-Pi 재시작 시 `settings.json`의 `packages`에서 선언된 확장들이 자동 설치됩니다:
+Pi 재시작 시 `settings.json`의 `packages`에서 선언된 패키지들이 자동 설치됩니다:
 - **pi-nvim** — Neovim과 Unix 소켓으로 통신 (같은 cwd에서 실행되는 Pi 세션 자동 발견)
 - **checkpoint-pi** — 매 턴마다 git ref로 작업 트리 스냅샷, 대화 포크/복구 시 파일도 함께 복원
 - **@tmustier/pi-ralph-wiggum** — `.ralph/<name>.md` 체크리스트 기반 장기 반복 작업 루프 (최대 50회)
+- **addyosmani/agent-skills** — Agent Skills 표준 기반 엔지니어링 워크플로우 스킬 모음 (`/skill:test-driven-development`, `/skill:code-review-and-quality` 등)
 
 Pi 로컬 확장 (`~/.pi/agent/extensions/`):
 - **cmux-notify.ts** — [cmux](https://github.com/manaflow-ai/cmux) 통합 (사이드바 상태 + 알림)
