@@ -1,22 +1,25 @@
 {
-  "lastChangelogVersion": "0.65.2",
+  "lastChangelogVersion": "0.67.6",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
   "theme": "catppuccin-macchiato",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "terminal": {
     "showImages": true
   },
   "showHardwareCursor": true,
   "doubleEscapeAction": "tree",
   "compaction": {
-    "enabled": false
+    "enabled": true,
+    "reserveTokens": 9000,
+    "keepRecentTokens": 55000
   },
   "packages": [
     "https://github.com/carderne/pi-nvim",
     "npm:checkpoint-pi",
     "npm:@tmustier/pi-ralph-wiggum",
-    "git:github.com/addyosmani/agent-skills@0.5.0"
+    "git:github.com/addyosmani/agent-skills@0.5.0",
+    "npm:pi-model-aware-compaction"
   ],
   "hideThinkingBlock": false,
   "enabledModels": [
