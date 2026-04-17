@@ -66,6 +66,7 @@
     "ask": [],
     "defaultMode": "default"
   },
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -99,6 +100,8 @@
     "figma@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": false,
-  "voiceEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "effortLevel": "medium",
+  "advisorModel": "opus",
+  "skipDangerousModePermissionPrompt": true,
+  "voiceEnabled": true
 }
