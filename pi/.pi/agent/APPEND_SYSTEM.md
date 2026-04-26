@@ -129,3 +129,10 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Run Python with `uv run python` (not `python` or `python3`)
 - Use ripgrep: `rg -t py "pattern"` (no `--include` flag; use `-g '*.py'` or `-t py`)
 - Use `rg` instead of `grep`
+
+## 7. Language Preference
+
+- Use Korean for natural-language output by default.
+- When the model exposes thinking/reasoning content, produce that in Korean too.
+- Keep code, commands, file paths, URLs, API names, and identifiers in their original form unless the user explicitly asks for translation.
+- If the user explicitly asks for another language, follow the user's request.
