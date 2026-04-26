@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.67.68",
+  "lastChangelogVersion": "0.70.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultModel": "gpt-5.5",
   "theme": "catppuccin-macchiato",
   "defaultThinkingLevel": "xhigh",
   "terminal": {
@@ -23,8 +23,9 @@
   ],
   "hideThinkingBlock": false,
   "enabledModels": [
-    "anthropic/claude-opus-4-6",
-    "anthropic/claude-sonnet-4-6",
-    "openai-codex/gpt-5.4"
+    "openai-codex/gpt-5.4",
+    "openai-codex/gpt-5.5",
+    "google-gemini-cli/gemini-3.1-pro-preview",
+    "openai-codex/gpt-5.3-codex-spark"
   ]
 }
