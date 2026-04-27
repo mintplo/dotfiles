@@ -1,5 +1,18 @@
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 
+function getCliMode(argv: string[]): string | undefined {
+  const modeIndex = argv.indexOf("--mode");
+  if (modeIndex !== -1) return argv[modeIndex + 1];
+
+  const modeArg = argv.find((arg) => arg.startsWith("--mode="));
+  return modeArg?.slice("--mode=".length);
+}
+
+function isNonInteractiveRun(argv: string[]): boolean {
+  const mode = getCliMode(argv);
+  return mode === "json" || mode === "text" || mode === "rpc" || argv.includes("--print") || argv.includes("-p");
+}
+
 // cmux integration for Pi agent:
 // - Updates sidebar status ("Running" / "Idle") as Pi works
 // - Fires a cmux notification when Pi goes idle (waiting for input)
@@ -8,6 +21,8 @@ import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 // Silently no-ops if cmux is not available.
 
 export default function (pi: ExtensionAPI) {
+  if (isNonInteractiveRun(process.argv)) return;
+
   async function runCmux(args: string[]) {
     try {
       await pi.exec("cmux", args, { timeout: 1500 });
@@ -29,7 +44,7 @@ export default function (pi: ExtensionAPI) {
     await runCmux(["notify", "--title", "Pi", "--body", "Waiting for input"]);
   });
 
-  pi.on("session_end", async () => {
+  pi.on("session_shutdown", async () => {
     await runCmux(["clear-status", "pi"]);
   });
 }
