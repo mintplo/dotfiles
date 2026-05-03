@@ -19,8 +19,7 @@
     "npm:checkpoint-pi",
     "npm:@tmustier/pi-ralph-wiggum",
     "git:github.com/addyosmani/agent-skills@0.5.0",
-    "npm:pi-model-aware-compaction",
-    "https://github.com/alchaincyf/huashu-design"
+    "npm:pi-model-aware-compaction"
   ],
   "hideThinkingBlock": false,
   "enabledModels": [
