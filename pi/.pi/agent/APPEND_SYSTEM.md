@@ -67,70 +67,94 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## 5. Code Search Strategy
 
-**Use precise tools first. grep/rg browsing is a last resort.**
+**Use precise tools first. `rg`/broad browsing is a fallback, not the first move.**
 
 ### Decision Tree
 
-1. **Know the symbol name** → `search_symbols` (fastest, most reliable)
-2. **Know it exists but not the name** → `code_search` with short English query
-3. **code_search returns nothing** → `rg` with exact string pattern
-4. **Need structure overview** → `project_map`
-5. **Have a symbol, need its definition** → `goto_definition`
-6. **Need all usages** → `find_references`
-7. **Need type info** → `hover_info`
-8. **Need file errors** → `get_diagnostics`
+1. **Know the symbol name** → `search_symbols`.
+2. **Need a high-level map** → `project_map`.
+3. **Know a file/path fragment** → `find` or `fuzzy_search` with `target="files"`.
+4. **Know exact text or an identifier** → `rg` tool with a short literal pattern.
+5. **Need OR logic across naming variants** → `multi_grep`.
+6. **Need typo-tolerant file/content discovery** → `fuzzy_search` with `target="auto"`.
+7. **Have a symbol/location and need semantics** → `goto_definition`, `find_references`, `hover_info`.
+8. **Need file errors** → `get_diagnostics`.
+9. **Need current external information** → `web_search`, then `web_fetch` for primary sources.
 
 ### search_symbols
 
 - **First search: OMIT the kind filter.** Don't guess if it's a class, function, or method.
   - ✅ `search_symbols("ReviewCycleEditor")` → finds the class immediately
-  - ❌ `search_symbols("ReviewCycleEditor", kind="function")` → misses it (it's a class)
-- **Add kind filter only to narrow down** when too many results come back.
+  - ❌ `search_symbols("ReviewCycleEditor", kind="function")` → misses it if it's a class
+- Add `kind` only to narrow down when too many results come back.
 - Use short, exact symbol names. Partial match works, but shorter is better.
+- If the tool reports that universal-ctags is missing, fall back to `rg`/`multi_grep` and tell the user to run `brew install universal-ctags`.
 
-### code_search (Semantic Vector Search)
+### rg / grep / multi_grep / fuzzy_search
 
-- **Always query in English** — the embedding model is English-optimized.
-- **SHORT queries (2-4 keywords).** Use code identifiers, not natural language descriptions.
-  - ✅ `"ReviewCycleEditor edit step"` — uses actual class/method names
-  - ✅ `"version_id review cycle"` — uses actual field name
-  - ❌ `"ReviewCycle model version_id organization version field"` — too long, too vague
-  - ❌ `"review cycle editor steps settings page admin"` — pure description, no code terms
-- **DO NOT use the language filter on first search.** Fullstack projects have the same concept in both Python and TypeScript. Search all languages first, then filter if too noisy.
-  - ❌ `code_search("ReviewCycleEditor", language="tsx")` → misses Python backend class
-  - ✅ `code_search("ReviewCycleEditor")` → finds it regardless of language
-- **If code_search returns nothing after 2 attempts**, stop using it and switch to `rg` or `search_symbols`.
-- `top_k=5` is usually sufficient. Use `top_k=10` only when exploring broadly.
+- Prefer the `rg` tool for exact content search. Do not run shell `grep`.
+- Use `multi_grep` for snake_case / camelCase / PascalCase variants in one call.
+- Use `fuzzy_search` only when you are unsure whether the match is in a path or content, or when typos are likely.
+- Keep queries short. Start broad enough to match, then narrow.
+- Use path/constraints instead of shell pipelines when possible.
+
+### LSP Tools
+
+- Use `goto_definition` when you have a file location or symbol and need the implementation.
+- Use `find_references` before changing public APIs or renaming symbols.
+- Use `hover_info` for type signatures and documentation.
+- Use `get_diagnostics` to verify file-level errors after meaningful changes.
+
+### Web Search
+
+- Use `web_search` only for current external facts, docs, release notes, API behavior, or user-requested web research.
+- DuckDuckGo works without an API key. Force it with `provider="duckduckgo"` when the user asks for DuckDuckGo specifically.
+- Prefer source links from official docs, changelogs, repositories, or vendor pages.
+- Use `web_fetch` to read important result URLs before citing details.
 
 ### Fullstack Search: Don't Assume Frontend or Backend
 
-- When the user mentions a domain concept (e.g., "ReviewCycleEditor"), **search across the entire codebase first**.
-- Don't assume FE or BE. The same name can exist as a Python class AND a React component.
+- When the user mentions a domain concept, search across the entire codebase first.
+- Don't assume FE or BE. The same name can exist in Python and TypeScript.
 - If `search_symbols` finds it in one layer, check if there's a counterpart in the other.
 
 ### Know When to Stop Exploring
 
-- **For "탐색" (exploration) requests**: Once you find the direct answer (e.g., the dependency map, the method that triggers the change), summarize what you found and ASK if deeper exploration is wanted.
+- For exploration requests, once you find the direct answer, summarize what you found and ask if deeper exploration is wanted.
 - Don't explore every transitive dependency, every caller, every related service just because they exist.
 - A good heuristic: if the question can be answered with what you've already read, stop reading more files.
-- Present findings in layers: core answer first, then "관련 참고 사항" for deeper context.
+- Present findings in layers: core answer first, then related notes for deeper context.
 
 ### Never
 
 - Read files one by one hoping to find something.
-- Use `grep` when `rg` is available.
-- Use `bash cat` to read files when `read` tool exists.
-- Use `code_search` more than 2-3 times for the same concept — switch tools.
-- Apply a `language` filter on the first search attempt.
+- Use shell `grep`; use `rg` or the search tools.
+- Use `bash cat` to read files when `read` exists.
+- Apply narrow filters on the first search attempt unless you are certain.
 
 ## 6. Environment Rules
 
-- `edit`/`write` tools auto-format and run LSP diagnostics. Don't re-run formatters or `get_diagnostics` on files you just modified.
-- Run Python with `uv run python` (not `python` or `python3`)
-- Use ripgrep: `rg -t py "pattern"` (no `--include` flag; use `-g '*.py'` or `-t py`)
-- Use `rg` instead of `grep`
+- `edit`/`write` tools auto-format and run LSP diagnostics. Don't re-run formatters or diagnostics on files you just modified unless verification requires it.
+- Run Python with `uv run python` (not `python` or `python3`).
+- Use ripgrep syntax for shell searches when needed: `rg -t py "pattern"` or `rg -g '*.py' "pattern"`.
+- Do not use shell `grep`. Use `rg`, `multi_grep`, or `fuzzy_search`.
 
-## 7. Language Preference
+## 7. Context Economy
+
+**Every turn's cost scales with total context size. Keep context small.**
+
+- After `edit`, trust its output — it already contains the updated file content.
+- After `edit`/`write`, trust the auto-diagnostics — they already run automatically.
+- When using `read`, use `offset`/`limit` to fetch only the relevant section.
+- When command output may be long, pipe through `head -50` or `tail -20`.
+- If you've read the same file 3+ times in one conversation, rethink your approach.
+
+## 8. Mermaid Rules
+
+- When writing Mermaid diagrams, use English labels only inside Mermaid source.
+- Keep Mermaid node, participant, and note labels short. Put detailed Korean explanation outside the diagram.
+
+## 9. Language Preference
 
 - Use Korean for natural-language output by default.
 - When the model exposes thinking/reasoning content, produce that in Korean too.
