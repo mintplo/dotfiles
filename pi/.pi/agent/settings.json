@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.70.2",
+  "lastChangelogVersion": "0.74.0",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "mediumProvider": "openai-codex",
@@ -34,7 +34,6 @@
     "openai-codex/gpt-5.5",
     "openai-codex/gpt-5.4",
     "openai-codex/gpt-5.4-mini",
-    "openai-codex/gpt-5.3-codex-spark",
-    "google-gemini-cli/gemini-3.1-pro-preview"
+    "openai-codex/gpt-5.3-codex-spark"
   ]
 }
