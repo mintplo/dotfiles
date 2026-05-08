@@ -73,5 +73,8 @@ pi/.pi/**/node_modules/
 # Pi package installations (git clones, cached per-machine)
 pi/.pi/agent/git/
 
+# Lazyweb reports and downloaded references
+.lazyweb/
+
 # === General ===
 .DS_Store

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@ff-labs/fff-node": "^0.4.1"
+    "@ff-labs/fff-node": "^0.4.1",
+    "@modelcontextprotocol/sdk": "^1.29.0"
   }
 }
