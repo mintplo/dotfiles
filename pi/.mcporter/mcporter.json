@@ -15,6 +15,28 @@
         "lazyweb_list_categories",
         "lazyweb_list_collections"
       ]
+    },
+    "notion": {
+      "description": "Official hosted Notion MCP server.",
+      "baseUrl": "https://mcp.notion.com/mcp",
+      "auth": "oauth",
+      "allowedTools": [
+        "notion-search",
+        "notion-fetch",
+        "notion-create-pages",
+        "notion-update-page",
+        "notion-move-pages",
+        "notion-duplicate-page",
+        "notion-create-database",
+        "notion-update-data-source",
+        "notion-create-view",
+        "notion-update-view",
+        "notion-query-database-view",
+        "notion-create-comment",
+        "notion-get-comments",
+        "notion-get-teams",
+        "notion-get-users"
+      ]
     }
   }
 }

@@ -132,14 +132,31 @@ cd ~/.dotfiles/pi/.pi/agent/extensions/lsp && npm ci
 cd ~/.dotfiles/pi/.pi/agent/extensions/mcporter && npm ci
 ```
 
-Lazyweb MCP는 MCPorter에 등록되어 있고, 토큰은 로컬 `.env`에만 저장합니다. 토큰은 git에 커밋하지 않습니다:
+MCPorter 전역 설정은 `~/.mcporter/`에 있고, 이 dotfiles에서는 `stow -R pi`로 `~/.mcporter -> ~/.dotfiles/pi/.mcporter` 심링크를 만듭니다. 커밋 대상은 `pi/.mcporter/mcporter.json`이고, OAuth 토큰/credential은 로컬 ignored 파일에만 둡니다.
+
+등록된 MCP 서버:
+- **lazyweb** — UI reference/design research용 hosted MCP. Bearer token은 extension-local `.env`에만 저장합니다.
+- **notion** — Notion hosted MCP (`https://mcp.notion.com/mcp`). OAuth 인증을 사용하며 read/search와 write 도구를 모두 allowlist합니다.
+
+Lazyweb 토큰 설정:
 
 ```bash
 printf 'LAZYWEB_MCP_TOKEN=%s\n' '<LAZYWEB_TOKEN>' > ~/.pi/agent/extensions/mcporter/.env
 chmod 600 ~/.pi/agent/extensions/mcporter/.env
 ```
 
-Pi 안에서는 `mcp({ server: "lazyweb" })`로 도구를 확인하고, 예를 들어 `mcp({ call: "lazyweb.lazyweb_search", args: { query: "pricing page", limit: 3 } })`처럼 호출합니다. 필요하면 `/mcp status`, `/mcp refresh lazyweb`를 사용합니다.
+Notion OAuth 설정:
+
+```bash
+MCPORTER=~/.pi/agent/extensions/mcporter/node_modules/.bin/mcporter
+$MCPORTER --config ~/.mcporter/mcporter.json auth notion
+chmod 600 ~/.mcporter/credentials.json
+$MCPORTER --config ~/.mcporter/mcporter.json list notion --brief
+```
+
+다른 머신에 적용할 때는 `git pull && stow -R pi` 후 `~/.pi/agent/extensions/mcporter`에서 `npm ci`를 실행하고, Lazyweb은 `.env` 토큰을 다시 만들고, Notion은 위 `auth notion`으로 브라우저 OAuth 승인을 다시 합니다. `pi/.mcporter/credentials.json`과 `pi/.pi/agent/extensions/mcporter/.env`는 git에 커밋하지 않습니다.
+
+Pi 안에서는 `/reload` 후 `mcp({ server: "lazyweb" })`, `mcp({ server: "notion" })`로 도구를 확인합니다. 예: `mcp({ call: "lazyweb.lazyweb_search", args: { query: "pricing page", limit: 3 } })`, `mcp({ call: "notion.notion-search", args: { query: "roadmap" } })`. Notion write 도구(`notion-create-pages`, `notion-update-page`, `notion-create-comment` 등)는 실제 workspace를 변경하므로 명확한 사용자 의도 확인 후 사용합니다. 필요하면 `/mcp status`, `/mcp refresh lazyweb`, `/mcp refresh notion`을 사용합니다.
 
 Pi 로컬 확장 (`~/.pi/agent/extensions/`):
 - **mcporter/** — MCPorter 기반 MCP 브릿지. Lazyweb MCP를 `mcp` 도구로 호출
