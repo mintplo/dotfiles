@@ -1,8 +1,8 @@
 {
-  "name": "pi-agent-extensions",
+  "name": "pi-mcporter",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@ff-labs/fff-node": "^0.4.1"
+    "mcporter": "^0.8.1"
   }
 }

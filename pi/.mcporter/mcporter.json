@@ -1,0 +1,20 @@
+{
+  "imports": [],
+  "mcpServers": {
+    "lazyweb": {
+      "description": "Lazyweb hosted MCP for real product screenshots and UI design references.",
+      "baseUrl": "https://www.lazyweb.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${LAZYWEB_MCP_TOKEN}"
+      },
+      "allowedTools": [
+        "lazyweb_search",
+        "lazyweb_compare_image",
+        "lazyweb_find_similar",
+        "lazyweb_health",
+        "lazyweb_list_categories",
+        "lazyweb_list_collections"
+      ]
+    }
+  }
+}

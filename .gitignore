@@ -73,6 +73,11 @@ pi/.pi/**/node_modules/
 # Pi package installations (git clones, cached per-machine)
 pi/.pi/agent/git/
 
+# MCPorter local secrets/cache
+pi/.pi/agent/extensions/mcporter/.env
+pi/.pi/agent/extensions/mcporter/mcporter-cache.json
+pi/.mcporter/credentials.json
+
 # Lazyweb reports and downloaded references
 .lazyweb/
 

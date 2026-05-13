@@ -1,40 +1,42 @@
 ---
 name: lazyweb
-description: Use Lazyweb for UI inspiration, design research, pricing/onboarding/product-flow references, screenshots, comparisons, and design feedback against real apps.
-version: 1.0.0
+description: Use Lazyweb through MCPorter for UI inspiration, design research, pricing/onboarding/product-flow references, screenshots, comparisons, and design feedback against real apps.
+version: 1.1.0
 tags:
   - design-research
   - ui-references
   - screenshots
+  - mcporter
 ---
 
 # Lazyweb
 
 Use this skill when the user asks for UI inspiration, design research, app screenshots, product flow examples, onboarding patterns, pricing or paywall examples, competitive UI references, or feedback on an existing interface.
 
-Lazyweb gives Pi access to real product screenshots and design patterns through Pi tools backed by the hosted Lazyweb MCP server.
+Lazyweb gives Pi access to real product screenshots and design patterns through the `mcp` tool backed by MCPorter.
 
-## Pi Tools
+## Pi MCPorter Tool
 
-Use these tools for Lazyweb database access:
+Use the generic `mcp` tool for Lazyweb database access:
 
-- `lazyweb_list_tools` — list Lazyweb MCP tools exposed through Pi
-- `lazyweb_health` — check connectivity and auth
-- `lazyweb_search` — search screenshots by text query
-- `lazyweb_find_similar` — find screenshots similar to a known Lazyweb screenshot id
-- `lazyweb_compare_image` — find screenshots visually similar to an image URL or base64 image
+- List configured MCP servers: `mcp({})`
+- List Lazyweb tools: `mcp({ server: "lazyweb" })`
+- Check connectivity/auth: `mcp({ call: "lazyweb.lazyweb_health", args: {} })`
+- Search screenshots: `mcp({ call: "lazyweb.lazyweb_search", args: { query: "pricing page", limit: 10 } })`
+- Find similar screenshots: `mcp({ call: "lazyweb.lazyweb_find_similar", args: { screenshot_id: 123, limit: 10 } })`
+- Compare an image: `mcp({ call: "lazyweb.lazyweb_compare_image", args: { image_url: "https://...", limit: 10 } })`
 
-Before the first search in a session, run `lazyweb_health` unless connectivity was already verified.
+The `mcp` tool is enabled by default for this dotfiles setup. If it is disabled, ask the user to run `/mcp on`. Use `/mcp status` or `/mcp refresh lazyweb` when debugging MCP configuration.
 
 ## Token Handling
 
 The Lazyweb bearer token is a free no-billing token for UI reference tools. It does not authorize purchases, paid spend, private user data, or destructive actions.
 
-Pi reads the token from either:
+MCPorter reads `LAZYWEB_MCP_TOKEN` from the mcporter extension-local `.env` file:
 
-1. `LAZYWEB_MCP_TOKEN`
-2. `~/.lazyweb/lazyweb_mcp_token`
-3. legacy `~/.codex/lazyweb_mcp_token`
+```text
+~/.pi/agent/extensions/mcporter/.env
+```
 
 Do not write the token into tracked repo files. Do not commit it to public git history.
 
@@ -54,14 +56,14 @@ Do not write the token into tracked repo files. Do not commit it to public git h
 
 ## Search Workflow
 
-1. Run `lazyweb_health`.
-2. Run `lazyweb_search` 2–4 times with different concrete phrasings.
-   - Example: `{ "query": "pricing page with plan cards", "platform": "desktop", "limit": 10 }`
-   - Example: `{ "query": "mobile onboarding progress checklist", "platform": "mobile", "limit": 10 }`
+1. Run `mcp({ call: "lazyweb.lazyweb_health", args: {} })` unless Lazyweb connectivity was already verified in the session.
+2. Run `lazyweb.lazyweb_search` 2–4 times through `mcp` with different concrete phrasings.
+   - Example: `mcp({ call: "lazyweb.lazyweb_search", args: { query: "pricing page with plan cards", platform: "desktop", limit: 10 } })`
+   - Example: `mcp({ call: "lazyweb.lazyweb_search", args: { query: "mobile onboarding progress checklist", platform: "mobile", limit: 10 } })`
 3. Read each result's `visionDescription` before using it as evidence.
 4. Prefer fewer, directly relevant references over many loose matches.
-5. If a user asks for “more like this”, use `lazyweb_find_similar`.
-6. If a user provides an existing screenshot or URL, use `lazyweb_compare_image` when appropriate.
+5. If a user asks for “more like this”, use `lazyweb.lazyweb_find_similar` through `mcp`.
+6. If a user provides an existing screenshot or URL, use `lazyweb.lazyweb_compare_image` through `mcp` when appropriate.
 
 ## Reporting Guidance
 
